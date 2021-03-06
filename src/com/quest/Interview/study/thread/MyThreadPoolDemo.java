@@ -2,9 +2,7 @@ package com.quest.Interview.study.thread;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @auther agreeya
@@ -25,7 +23,23 @@ public class MyThreadPoolDemo {
 
 //        ExecutorService threadPool = Executors.newFixedThreadPool(5);//一池5个处理线程。
 //        ExecutorService threadPool = Executors.newSingleThreadExecutor();//一池1个处理线程。
-        ExecutorService threadPool = Executors.newCachedThreadPool();//一池N个处理线程。
+//        ExecutorService threadPool = Executors.newCachedThreadPool();//一池N个处理线程。
+
+        ExecutorService threadPool = new ThreadPoolExecutor(
+                2,
+                5,
+                1L,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(3),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy());
+//                new ThreadPoolExecutor.CallerRunsPolicy());
+//                new ThreadPoolExecutor.DiscardOldestPolicy());
+//                new ThreadPoolExecutor.DiscardPolicy());
+
+
+
+
 
         try{
             //模拟10个用户来办理业务，每个用户就是一个来自外部的请求线程
